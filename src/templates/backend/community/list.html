@@ -1,0 +1,24 @@
+{% extends 'backend/base.html' %}
+
+{% block content %}
+<div class="row">
+    {% if communities %}
+    {% for community in communities %}
+    <div class="col-xl-2 col-md-6">
+        <div class="card bg-primary text-white mb-4">
+            <img class="card-img-top" src="{{ community.community_image.url }}" alt="Card imge cap">
+            <div class="card-body">{{ community.community_name }}</div>
+            <div class="card-footer d-flex align-items-center justify-content-between">
+                <a class="small text-white stretched-link" href="#">Serviços referentes</a>
+                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <h1 class="text-center">
+        Nenhuma comunidade disponível <i class="far fa-frown-open"></i>
+    </h1>
+    {% endif %}
+</div>
+{% endblock %}

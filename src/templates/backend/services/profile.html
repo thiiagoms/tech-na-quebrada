@@ -1,0 +1,15 @@
+{% extends 'backend/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <a class="btn btn-success" href="{% url 'acceptService' id %}">
+        <i class="fas fa-hand-peace"></i>
+        Atender!
+    </a>
+    <a class="btn btn-danger" href="#">Cancelar</a>
+</form>
+{% endblock %}

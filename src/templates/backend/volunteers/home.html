@@ -1,0 +1,9 @@
+{% extends 'backend/base.html' %}
+
+{% block content  %}
+<h1>Hello {{ user_data.username }}</h1>
+{% endblock %}
+
+{% block logged %}
+{{ user_data.username }}
+{% endblock %}
