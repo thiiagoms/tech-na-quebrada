@@ -1,0 +1,24 @@
+.service-open {
+    height: 20px;
+    width: 20px;
+    background-color: green;
+    border-radius: 50%;
+    display: inline-block;
+}
+.service-busy {
+    height: 20px;
+    width: 20px;
+    background-color: #ffcc00;
+    border-radius: 50%;
+    display: inline-block;
+}
+.service-closed {
+    height: 20px;
+    width: 20px;
+    background-color: red;
+    border-radius: 50%;
+    display: inline-block;
+}
+.center-text {
+    text-align: center;
+}
