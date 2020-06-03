@@ -1,3 +1,76 @@
 {% extends 'backend/base.html' %}
 
-<h1>Listagem dos meus serviços</h1>
+{% block content %}
+<main>
+    <div class="container-fluid">
+        <h1 class="mt-4">Serviços</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="#">Serviços</a></li>
+            <li class="breadcrumb-item active">Meus Serviços</li>
+        </ol>
+        {% if services %}
+        <div class="card mb-4">
+            <div class="card-header"><i class="fas fa-table mr-1"></i>Serviços Disponíveis</div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Título</th>
+                                <th>Categoria</th>
+                                <th>Status</th>
+                                <th>Comunidade</th>
+                                <th>Atentido por</th>
+                                <th>Visualizar</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Título</th>
+                                <th>Categoria</th>
+                                <th>Status</th>
+                                <th>Comunidade</th>
+                                <th>Atentido por</th>
+                                <th>Visualizar</th>
+                            </tr>
+                        </tfoot>
+                        <tbody class="center-text">
+                            {% for srvc in services %}
+                            <tr>
+                                <th>{{ srvc.service_title }}</th>
+                                <th>{{ srvc.service_category }}</th>
+                                <th>
+                                    {% if srvc.service_status == "A" %}
+                                    <span class="service-open"></span> Aberto
+                                    {% elif srvc.service_status == "O" %}
+                                    <span class="service-busy"></span> Atendimento
+                                    {% elif srvc.service_status == "C" %}
+                                    <span class="service-closed"></span> Fechado
+                                    {% else %}
+                                    <span>Desconhecido</span>
+                                    {% endif %}
+                                </th> 
+                                <th>{{ srvc.service_community }}</th>
+                                {% if srvc.service_user %}
+                                <th>{{ srvc.service_user }}</th>
+                                {% else %}
+                                <th>Sem atendimento</th>
+                                {% endif %}
+                                <th>
+                                    <a class="btn btn-danger" href="{% url 'updateservice' srvc.id %}">Fechar</a>
+                                </th>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <h4>
+            Você ainda não atendeu nenhum serviço! <i class="far fa-frown-open"></i>
+        </h4>
+        {% endif %}
+    </div>
+</main>
+{% endblock %}

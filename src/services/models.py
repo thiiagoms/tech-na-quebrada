@@ -22,7 +22,7 @@ class Services(models.Model):
         null=False,
         blank=False,
     )
-    service_description = models.TextField(max_length=150)
+    service_description = models.TextField(max_length=300)
     service_images = models.ImageField(
         upload_to='img_services', 
         null=True, 

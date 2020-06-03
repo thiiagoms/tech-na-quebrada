@@ -6,7 +6,7 @@
 <form method="POST">
     {% csrf_token %}
     {{ form|crispy }}
-    <a class="btn btn-success" href="{% url 'acceptService' id %}">
+    <a class="btn btn-success" href="{% url 'acceptservice' id %}">
         <i class="fas fa-hand-peace"></i>
         Atender!
     </a>

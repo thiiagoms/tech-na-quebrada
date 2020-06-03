@@ -1,7 +1,8 @@
 from django.shortcuts import (
+    HttpResponseRedirect,
+    get_object_or_404,
     render,
     redirect,
-    HttpResponse
 )
 from django.contrib.auth import (
     authenticate,
@@ -18,6 +19,7 @@ from django.contrib.auth.models import (
 from services.models import (
     Services
 )
+
 from .forms import (
     VolunteerLoginForm,
     VolunteerRegisterForm,
@@ -27,12 +29,9 @@ from .models import (
     UserProfile
 )
 
-
 # Create your views here.
-def register_volunteer(request):
-    """
-    Cadastro dos voluntários, após o cadastro é redirecionado para o dashboard
-    """
+def sign_up(request):
+  
     next = request.GET.get('next')
     form = VolunteerRegisterForm(request.POST or None, request.FILES or None)
     if form.is_valid():
@@ -62,10 +61,8 @@ def register_volunteer(request):
     }
     return render(request, "backend/volunteers/register.html", context)
 
-def login_volunteer(request):
-    """
-    Login volunteer 
-    """
+def sign_in(request):
+
     next = request.GET.get('next')
     form = VolunteerLoginForm(request.POST or None)
     if form.is_valid():
@@ -80,14 +77,14 @@ def login_volunteer(request):
         request.session['username'] = username
         if next:
             return redirect(next)
-        return redirect('home')
+        return redirect('dashboard')
     context = {
         'form': form
     }
     return render(request, "backend/volunteers/login.html", context)
     
 @login_required
-def home(request):
+def dashboard(request):
     current_user = request.user
     user = User.objects.get(pk=current_user.id)
     context = {
@@ -96,9 +93,9 @@ def home(request):
     return render(request, "backend/volunteers/home.html", context)
 
 @login_required
-def logout_user(request):
+def user_logout(request):
     logout(request)
-    return redirect("index")
+    return HttpResponseRedirect('/volunteer/login')
     
 @login_required
 def accept_service(request, id):
@@ -136,8 +133,35 @@ def profile_user(request):
     return render(request, "backend/volunteers/profile.html", context)
 
 @login_required
-def my_services(request):
+def user_services(request):
+    current_user = request.user
+    services = Services.objects.all().filter(
+        service_user = current_user.id
+    )
     context = {
-
+        'services': services
     }
     return render(request, "backend/volunteers/services.html", context)
+
+@login_required
+def update_service_status(request, id):
+    services = Services.objects.get(pk=id)
+    services.service_status = "C"
+    services.save()
+    return redirect('userservices')
+
+@login_required
+def search_user(request):
+    
+    search_user = request.GET.get('searchuser' or None)
+
+    if search_user:
+        users = User.objects.all().filter(username=search_user)
+    else:
+        users = User.objects.all()[:3]
+
+    context = {
+       'users': users
+    }
+
+    return render(request, "backend/volunteers/search.html", context)

@@ -14,7 +14,7 @@ class CommunityAddress(models.Model):
     )
     
     def __str__(self):
-        return self.community_address
+        return f"Endereço: {self.community_address}"
 
 class Community(models.Model):
     """
@@ -26,13 +26,13 @@ class Community(models.Model):
     community_image = models.ImageField(
         upload_to='img_community'
     )
-    community_data = models.ForeignKey(
+    community_address = models.ForeignKey(
         CommunityAddress,
         null=True,
         on_delete=models.CASCADE
     )
 
     def __str__(self):
-        return self.community_name
+        return f"Comunidade: {self.community_name}"
         
     

@@ -41,3 +41,9 @@ def profile_service(request, id):
         'id': id
     }
     return render(request, 'backend/services/profile.html', context)
+
+@login_required
+def search_service(request):
+    context = {
+    }
+    return render(request, "backend/services/search.html", context)

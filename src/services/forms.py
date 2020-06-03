@@ -33,7 +33,7 @@ class ServiceRegisterForm(forms.ModelForm):
         label="Descrição do serviço:",
         widget=forms.Textarea(
             attrs={
-                'placeholder': 'Descrição do serviço'
+                'placeholder': 'Descrição do serviço -Máximo de 300 caracteres'
             }
         )
     )
@@ -56,6 +56,21 @@ class ServiceReadyOnly(forms.ModelForm):
     """
     Register Service
     """
+    service_title = forms.CharField(
+        label="Título do serviço: "
+    )
+    service_description = forms.CharField(
+        label="Descrição do serviço: "
+    )
+    service_category = forms.ModelChoiceField(
+        label="Categoria do serviço: ",
+        queryset=ServicesCategory.objects.all()
+    )
+    service_community = forms.ModelChoiceField(
+        label="Comunidade referente: ",
+        queryset=Community.objects.all()
+    )
+    
     def __init__(self, *args, **kwargs):
         super(ServiceReadyOnly, self).__init__(*args, **kwargs)                       
         self.fields['service_title'].disabled=True
