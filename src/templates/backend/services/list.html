@@ -44,8 +44,10 @@
                                     <span class="service-open"></span> Aberto
                                     {% elif srvc.service_status == "O" %}
                                     <span class="service-busy"></span> Atendimento
+                                    {% elif srvc.service_status == "C" %}
+                                    <span class="service-closed"></span> Fechado
                                     {% else %}
-                                    <span class="service-open"></span> Fechado
+                                    <span>Desconhecido</span>
                                     {% endif %}
                                 </th> 
                                 <th>{{ srvc.service_community }}</th>
@@ -55,7 +57,7 @@
                                 <th>Sem atendimento</th>
                                 {% endif %}
                                 <th>
-                                    <a class="btn btn-warning" href="{% url 'profileService' srvc.id %}">Visualizar</a>
+                                    <a class="btn btn-warning" href="{% url 'profileservice' srvc.id %}">Visualizar</a>
                                 </th>
                             </tr>
                             {% endfor %}

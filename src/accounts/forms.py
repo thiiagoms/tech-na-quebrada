@@ -11,11 +11,20 @@ class VolunteerLoginForm(forms.Form):
     Login Volunteer form, render in backend with crispy
     """
     username = forms.CharField(
-        label="Digite seu nome de usuário"
+        label="Digite seu nome de usuário",
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Digite seu nome de usuário:'
+            }
+        )
     )
     password = forms.CharField(
         label="Digite sua senha",
-        widget=forms.PasswordInput
+        widget=forms.PasswordInput(
+            attrs={
+                'placeholder': 'Digite sua senha:'
+            }
+        )
     )
     
     def clean(self, *args, **kwargs):
