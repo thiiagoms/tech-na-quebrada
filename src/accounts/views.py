@@ -8,7 +8,6 @@ from django.contrib.auth import (
     authenticate,
     login,
     logout,
-    get_user_model
 )
 from django.contrib.auth.decorators import (
     login_required
@@ -31,7 +30,7 @@ from .models import (
 
 # Create your views here.
 def sign_up(request):
-  
+
     next = request.GET.get('next')
     form = VolunteerRegisterForm(request.POST or None, request.FILES or None)
     if form.is_valid():
@@ -41,13 +40,13 @@ def sign_up(request):
         avatar = form.cleaned_data.get('image')
         volunteer.set_password(password)
         volunteer.save()
-        
+
         user = User.objects.get(username=username)
-        
+
         userprofile = UserProfile.objects.create(user=user, avatar=avatar)
-        
+
         userprofile.save()
-        
+
         auth_volunteer = authenticate(
             username=volunteer.username,
             password=password
@@ -55,7 +54,7 @@ def sign_up(request):
         login(request, auth_volunteer)
         if next:
             return redirect(next)
-        return redirect('home')
+        return redirect('dashboard')
     context = {
         'form': form
     }
@@ -82,7 +81,7 @@ def sign_in(request):
         'form': form
     }
     return render(request, "backend/volunteers/login.html", context)
-    
+
 @login_required
 def dashboard(request):
     current_user = request.user
@@ -96,7 +95,7 @@ def dashboard(request):
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect('/volunteer/login')
-    
+
 @login_required
 def accept_service(request, id):
     service_request = Services.objects.get(pk=id)
@@ -152,16 +151,20 @@ def update_service_status(request, id):
 
 @login_required
 def search_user(request):
-    
-    search_user = request.GET.get('searchuser' or None)
+
+    search_user = request.POST.get('searchuser' or None)
 
     if search_user:
-        users = User.objects.all().filter(username=search_user)
+        usr = User.objects.all().filter(first_name__contains=search_user)
+        #user_profile = UserProfile.objects.select_related('user').all()
+        #user = User.objects.all().filter(first_name__contains=search_user)
+        #get_result = UserProfile.objects.get(pk=user.id)
+        #userprofile = UserProfile.objects.select_related('user').all()
+        user_result = usr
     else:
-        users = User.objects.all()[:3]
+        usrs = User.objects.all()
+        user_result = usrs
 
-    context = {
-       'users': users
-    }
+    context = { 'users': user_result }
 
     return render(request, "backend/volunteers/search.html", context)

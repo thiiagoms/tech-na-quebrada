@@ -13,7 +13,6 @@ from .models import (
 )
 
 # Create your views here.
-@login_required
 def create_service(request):
     serviceForm = ServiceRegisterForm(request.POST or None, request.FILES or None)
     if serviceForm.is_valid():
