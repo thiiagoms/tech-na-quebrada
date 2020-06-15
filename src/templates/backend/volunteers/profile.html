@@ -5,12 +5,12 @@
 {% block content %}
 <div class="container bootstrap snippet">
     <div class="row">
-  		<div class="col-sm-10"><h2>Perfil de ekkopy</h2></div>
+  		<div class="col-sm-10"><h2>Perfil de {{ request.session.username }}</h2></div>
     	<div class="col-sm-2"><a href="/fusers" class="pull-right"><img title="profile image" class="img-circle img-responsive" src="http://www.gravatar.com/avatar/28fd20ccec6865e2d5f0e1f4446eb7bf?s=100"></a></div>
     </div>
     <div class="row">
-  		<div class="col-sm-3"><!--left col-->
-              
+      <div class="col-sm-3"><!--left col-->
+
 
       <div class="text-center">
         <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
@@ -18,30 +18,30 @@
         <input type="file" class="text-center center-block file-upload">
       </div></hr><br>
 
-               
-          <div class="panel panel-default">
-            <div class="panel-heading">Website <i class="fa fa-link fa-1x"></i></div>
-            <div class="panel-body"><a href="http://bootnipets.com">bootnipets.com</a></div>
-          </div>
-          
-          
+
+      <div class="panel panel-default">
+        <div class="panel-heading">Website <i class="fa fa-link fa-1x"></i></div>
+        <div class="panel-body"><a href="http://bootnipets.com">bootnipets.com</a></div>
+      </div>
+
+
           <ul class="list-group">
             <li class="list-group-item text-muted">Últimos registros<i class="fa fa-dashboard fa-1x"></i></li>
             <li class="list-group-item text-right"><span class="pull-left"><strong>Serviços</strong></span> 125</li>
             <li class="list-group-item text-right"><span class="pull-left"><strong>Avaliações</strong></span> 13</li>
-          </ul> 
-               
+          </ul>
+
           <div class="panel panel-default">
             <div class="panel-heading">Mídias Sociais</div>
             <div class="panel-body">
                 <!-- Medias sociais -->
             </div>
           </div>
-          
+
         </div><!--/col-3-->
-        
+
         <div class="col-sm-9">
-              
+
           <div class="tab-content">
             <div class="tab-pane active" id="home">
                 <hr>
@@ -56,12 +56,12 @@
                             </div>
                       </div>
               	</form>
-               
+
               <hr>
-              
+
              </div><!--/tab-pane-->
 
         </div><!--/col-9-->
     </div>
-    
+
 {% endblock %}

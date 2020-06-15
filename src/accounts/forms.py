@@ -7,26 +7,16 @@ from django.contrib.auth import (
 User = get_user_model()
 
 class VolunteerLoginForm(forms.Form):
-    """
-    Login Volunteer form, render in backend with crispy
-    """
+
     username = forms.CharField(
         label="Digite seu nome de usuário",
-        widget=forms.TextInput(
-            attrs={
-                'placeholder': 'Digite seu nome de usuário:'
-            }
-        )
-    )
+        widget=forms.TextInput(attrs={ 'placeholder': 'Digite seu nome de usuário:' }
+    ))
     password = forms.CharField(
         label="Digite sua senha",
-        widget=forms.PasswordInput(
-            attrs={
-                'placeholder': 'Digite sua senha:'
-            }
-        )
-    )
-    
+        widget=forms.PasswordInput(attrs={ 'placeholder': 'Digite sua senha:' }
+    ))
+
     def clean(self, *args, **kwargs):
         username = self.cleaned_data.get('username')
         password = self.cleaned_data.get('password')
@@ -46,17 +36,32 @@ class VolunteerLoginForm(forms.Form):
                   "Usuário não está ativo"
                 )
         return super(VolunteerLoginForm, self).clean(*args, **kwargs)
-                
+
 class VolunteerRegisterForm(forms.ModelForm):
-    """
-    Register Volunteer form, render in backend with crispy
-    """
-    username = forms.CharField(label="Informe seu nome de usuário: ")
-    email = forms.EmailField(label="Informe seu e-mail: ")
-    email2 = forms.EmailField(label="Confirme seu endereço de email: ")
+
+    username = forms.CharField(
+       label = "Informe seu nome de usuário: ",
+       widget = forms.TextInput( attrs = { 'placeholder': "Nome de usuário necessário para entrar na plataforma" })
+    )
+    first_name = forms.CharField(
+       label = "Informe seu primeiro nome: ",
+       widget = forms.TextInput(attrs = { 'placeholder': "Informe o seu primeiro nome" })
+    )
+    last_name = forms.CharField(
+       label = "Informe seu último nome",
+       widget = forms.TextInput(attrs = { 'placeholder': "Informe seu último nome" })
+    )
+    email = forms.EmailField(
+       label = "Informe seu e-mail: ",
+       widget = forms.EmailInput(attrs = { 'placeholder': "Informe o endereço de e-mail válido" })
+    )
+    email2 = forms.EmailField(
+       label = "Confirme seu e-mail: ",
+       widget = forms.EmailInput(attrs = { 'placeholder': "Informe novamente seu e-mail" })
+    )
     password = forms.CharField(
-        label="Digite sua senha: ", 
-        widget=forms.PasswordInput
+        label="Digite sua senha: ",
+        widget=forms.PasswordInput( attrs = { 'placeholder' : "Informa uma senha válida" })
     )
     image = forms.ImageField(label="Escolha seu avatar: ")
 
@@ -64,6 +69,8 @@ class VolunteerRegisterForm(forms.ModelForm):
         model = User
         fields = [
             'username',
+            'first_name',
+            'last_name',
             'email',
             'email2',
             'password',
@@ -80,11 +87,11 @@ class VolunteerRegisterForm(forms.ModelForm):
         email_exists = User.objects.filter(email=email)
         if email_exists.exists():
             raise forms.ValidationError("Endereço de email já existe!!")
-        
+
         return super(VolunteerRegisterForm, self).clean(*args, **kwargs)
 
 class VolunteerEditForm(forms.ModelForm):
-    
+
     username = forms.CharField(
         label="Nome de usuário: "
     )
@@ -113,7 +120,7 @@ class VolunteerEditForm(forms.ModelForm):
         )
     )
     password = forms.CharField(
-        label="Digite sua senha: ", 
+        label="Digite sua senha: ",
         widget=forms.PasswordInput(
             attrs={
                 'placeholder': "Digite sua nova senha"
@@ -142,4 +149,3 @@ class VolunteerEditForm(forms.ModelForm):
             'password',
             'password2'
         ]
-    

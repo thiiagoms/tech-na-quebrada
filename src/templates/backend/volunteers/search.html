@@ -1,7 +1,30 @@
-{% load static %}
+{% extends 'backend/base.html'  %}
 
 {% block content %}
 <div class="container">
-
+  <form method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="searchser">Informe o nome do voluntário: </label>
+      <input type="text" id="searchuser" name="searchuser" class="form-control" placeholder="Informe o nome do voluntário que deseja procurar...">
+    </div>
+    <button type="submit" class="btn btn-primary">Procurar</button>
+  </form>
+  <!-- List users -->
+  <br>
+  <div class="row">
+  {% for user in users %}
+  <div class="col-xl-2 col-md-6">
+    <div class="card bg-primary text-white mb-4">
+      <img class="card-img-top" src="#" alt="Card imge cap">
+      <div class="card-body">{{ user.first_name }} {{ user.last_name }}</div>
+      <div class="card-footer d-flex align-items-center justify-content-between">
+        <a class="small text-white stretched-link" href="#">Visualizar perfil</a>
+        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  </div>
 </div>
 {% endblock %}
