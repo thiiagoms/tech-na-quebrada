@@ -155,16 +155,13 @@ def search_user(request):
     search_user = request.POST.get('searchuser' or None)
 
     if search_user:
-        usr = User.objects.all().filter(first_name__contains=search_user)
-        #user_profile = UserProfile.objects.select_related('user').all()
-        #user = User.objects.all().filter(first_name__contains=search_user)
-        #get_result = UserProfile.objects.get(pk=user.id)
-        #userprofile = UserProfile.objects.select_related('user').all()
+        users = User.objects.get(first_name__contains=search_user)
+        usr = UserProfile.objects.get(pk=users.id)
         user_result = usr
+        context = { 'users': user_result }
+        return render(request, "backend/volunteers/search.html", context)
     else:
-        usrs = User.objects.all()
+        usrs = UserProfile.objects.all()
         user_result = usrs
-
-    context = { 'users': user_result }
-
-    return render(request, "backend/volunteers/search.html", context)
+        context = { 'usrs': user_result }
+        return render(request, "backend/volunteers/search.html", context)
