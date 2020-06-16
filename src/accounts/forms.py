@@ -134,7 +134,7 @@ class VolunteerEditForm(forms.ModelForm):
             }
         )
     )
-
+  
     def __init__(self, *args, **kwargs):
         super(VolunteerEditForm, self).__init__(*args, **kwargs)
         self.fields['username'].disabled=True

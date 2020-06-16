@@ -1,0 +1,21 @@
+{% extends 'backend/base.html' %}
+
+{% block content %}
+<div class="container">
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="searchservice">Procure por um serviço: </label>
+            <input type="text" id="searchservice" name="searchservice" class="form-control"
+               placeholder="Informe o tipo de serviço que você deseja">
+        </div>
+        <button type="submit" class="btn btn-primary">Buscar</button>
+    </form>
+    <br>
+     <ul>
+        {% for service in services %}
+        <li>{{ service.service_title }}</li>
+        {% endfor %}
+     </ul>
+</div>
+{% endblock %}

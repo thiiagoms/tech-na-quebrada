@@ -1,9 +1,9 @@
 from django.urls import path
 from .views import (
-   create_service,
-   list_service,
-   profile_service,
-   search_service
+  create_service,
+  list_service,
+  profile_service,
+  search_service
 )
 
 # urls referentes as comunidades
