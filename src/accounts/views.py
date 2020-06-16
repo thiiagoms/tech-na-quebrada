@@ -115,6 +115,7 @@ def profile_user(request):
         request.FILES or None,
         instance=volunteer
     )
+    avatar_user = UserProfile.objects.get(pk=current_user.id)
     if form.is_valid():
         edit_volunteer = form.save(commit=False)
         password = form.cleaned_data.get('password')
@@ -126,8 +127,10 @@ def profile_user(request):
             password=password
         )
         login(request, new_auth)
+
     context = {
-        'form': form
+        'form': form,
+        'image': avatar_user
     }
     return render(request, "backend/volunteers/profile.html", context)
 
@@ -165,3 +168,10 @@ def search_user(request):
         user_result = usrs
         context = { 'usrs': user_result }
         return render(request, "backend/volunteers/search.html", context)
+
+@login_required
+def list_users(request):
+    usrs = UserProfile.objects.all()
+    user_result = usrs
+    context = { 'users': user_result }
+    return render(request, "backend/volunteers/list.html", context)

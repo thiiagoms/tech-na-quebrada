@@ -3,6 +3,7 @@ from django.urls import path
 from .views import (
     accept_service,
     dashboard,
+    list_users,
     profile_user,
     search_user,
     sign_in,
@@ -17,6 +18,7 @@ urlpatterns = [
     path('dashboard', dashboard, name="dashboard"),
     path('login', sign_in, name="sign_in"),
     path('logout', user_logout, name="logout"),
+    path('list-users', list_users, name="userlist"),
     path('my-services', user_services, name="userservices"),
     path('profile', profile_user, name="userprofile"),
     path('search-volunteers', search_user, name="searchuser"),

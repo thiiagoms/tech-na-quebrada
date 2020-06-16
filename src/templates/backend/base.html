@@ -21,7 +21,7 @@
 
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">Anjos do Asfalto</a><button
+            <a class="navbar-brand" href="#">Anjos da Comunidade</a><button
                 class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i
                     class="fas fa-bars"></i></button><!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -83,7 +83,7 @@
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="{% url 'createservice' %}">Novo serviço</a>
                                     <a class="nav-link" href="{% url 'listservice' %}">Todos os serviços</a>
-                                    <a class="nav-link" href="#">Procurar Serviço</a>
+                                    <a class="nav-link" href="{% url 'searchservice' %}">Procurar Serviço</a>
                                 </nav>
                             </div>
                             <!-- ./Servicos -->
@@ -101,7 +101,7 @@
                                     <a class="nav-link" href="{% url 'userprofile' %}">Meu perfil</a>
                                     <a class="nav-link" href="{% url 'userservices' %}">Meus serviços</a>
                                     <a class="nav-link" href="{% url 'searchuser' %}">Procurar voluntário</a>
-                                    <a class="nav-link" href="#">Voluntários disponíveis</a>
+                                    <a class="nav-link" href="{% url 'userlist' %}">Voluntários disponíveis</a>
                                 </nav>
                             </div>
                             <!-- ./Voluntario -->
@@ -118,11 +118,13 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">Anjos do asfalto</h1>
+                        <h1 class="mt-4">Anjos da Comunidade</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Seja um anjo na vida de alguem!</li>
                         </ol>
                         {% block content %}
+                        {% endblock %}
+                        {% block teste %}
                         {% endblock %}
                     </div>
                 </main>

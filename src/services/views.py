@@ -17,7 +17,7 @@ def create_service(request):
     serviceForm = ServiceRegisterForm(request.POST or None, request.FILES or None)
     if serviceForm.is_valid():
         serviceForm.save()
-        return redirect('listService')
+        return redirect('listservice')
     context = {
         'form': serviceForm
     }
@@ -43,6 +43,13 @@ def profile_service(request, id):
 
 @login_required
 def search_service(request):
-    context = {
-    }
+
+    search_service = request.POST.get('searchservice' or None)
+    context = {}
+    
+    if search_service:
+        print(search_service)
+        get_search = Services.objects.filter(service_title__contains=search_service)
+        context["services"] = get_search
+    
     return render(request, "backend/services/search.html", context)
